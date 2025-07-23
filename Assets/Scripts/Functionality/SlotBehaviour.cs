@@ -501,7 +501,7 @@ public class SlotBehaviour : MonoBehaviour
         yield return new WaitUntil(() => SocketManager.isResultdone);
 
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
             for (int j = 0; j < 5; j++)
             {
@@ -550,6 +550,9 @@ public class SlotBehaviour : MonoBehaviour
         }
 
         if (audioController) audioController.StopSpinAudio();
+        if (TotalWin_text) TotalWin_text.text = SocketManager.resultData.payload.winAmount.ToString("f2");
+        if (Balance_text) Balance_text.text = SocketManager.playerdata.balance.ToString("f2");
+
         if (SocketManager.resultData.payload.winAmount > 0)
         {
             List<int> winLine = new();
@@ -566,14 +569,12 @@ public class SlotBehaviour : MonoBehaviour
 
         CheckPopups = true;
 
-        if (TotalWin_text) TotalWin_text.text = SocketManager.resultData.payload.winAmount.ToString("f2");
-        if (Balance_text) Balance_text.text = SocketManager.playerdata.balance.ToString("f2");
+
 
         if (SocketManager.resultData.jackpot.isTriggered)
         {
-            uiManager.PopulateWin(4, SocketManager.resultData.jackpot.amount);
             CheckPopups = true;
-
+            uiManager.PopulateWin(4, SocketManager.resultData.jackpot.amount);
             yield return new WaitUntil(() => !CheckPopups);
         }
         else
