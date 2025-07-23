@@ -253,17 +253,17 @@ public class UIManager : MonoBehaviour
         {
             string text = null;
 
-            if (paylines.symbols[i].Multiplier[0][0] != 0)
+            if (paylines.symbols[i].multiplier[0] != 0)
             {
-                text += "5x - " + paylines.symbols[i].Multiplier[0][0] + "X";
+                text += "5x - " + paylines.symbols[i].multiplier[0] + "X";
             }
-            if (paylines.symbols[i].Multiplier[1][0] != 0)
+            if (paylines.symbols[i].multiplier[1] != 0)
             {
-                text += "\n4x - " + paylines.symbols[i].Multiplier[1][0] + "X";
+                text += "\n4x - " + paylines.symbols[i].multiplier[1] + "X";
             }
-            if (paylines.symbols[i].Multiplier[2][0] != 0)
+            if (paylines.symbols[i].multiplier[2] != 0)
             {
-                text += "\n3x - " + paylines.symbols[i].Multiplier[2][0] + "X";
+                text += "\n3x - " + paylines.symbols[i].multiplier[2] + "X";
             }
 
             Debug.Log(string.Concat("<color=blue><b>", text, "</b></color>"));
@@ -273,7 +273,7 @@ public class UIManager : MonoBehaviour
 
         for (int i = 0; i < paylines.symbols.Count; i++)
         {
-            switch (paylines.symbols[i].Name.ToUpper())
+            switch (paylines.symbols[i].name.ToUpper())
             {
                 case "JACKPOT":
                     if (Jackpot_Text) Jackpot_Text.text = paylines.symbols[i].description.ToString();
@@ -406,7 +406,7 @@ public class UIManager : MonoBehaviour
 
         //if (MainPopup_Object) MainPopup_Object.SetActive(true);
 
-        WinPopupTextTween = DOTween.To(() => initAmount, (val) => initAmount = val, amount, 5f).OnUpdate(() =>
+        WinPopupTextTween = DOTween.To(() => initAmount, (val) => initAmount = val, amount, 3f).OnUpdate(() =>
         {
             // if (jackpot)
             // {
@@ -421,7 +421,7 @@ public class UIManager : MonoBehaviour
             // }
         });
 
-        ClosePopupTween = DOVirtual.DelayedCall(6f, () =>
+        ClosePopupTween = DOVirtual.DelayedCall(4f, () =>
         {
             ClosePopup(WinPopup_Object);
             if (jackpot_Object.activeSelf)
