@@ -518,7 +518,7 @@ public class SlotBehaviour : MonoBehaviour
         //     yield return new WaitForSeconds(0.1f);
         // }
         // else
-        if(!(IsTurboOn || IsFreeSpin))
+        if (!(IsTurboOn || IsFreeSpin))
         {
             for (int i = 0; i < 5; i++)
             {
@@ -603,8 +603,9 @@ public class SlotBehaviour : MonoBehaviour
         {
             if (IsAutoSpin)
             {
+
                 StopAutoSpin();
-                yield return new WaitForSeconds(0.1f);
+               // yield return new WaitForSeconds(0.1f);
                 WasAutoSpinOn = true;
             }
             if (IsFreeSpin)
@@ -616,7 +617,7 @@ public class SlotBehaviour : MonoBehaviour
                     FreeSpinRoutine = null;
                 }
             }
-           StartCoroutine(uiManager.FreeSpinProcess((int)SocketManager.resultData.freeSpin.count));
+            StartCoroutine(uiManager.FreeSpinProcess((int)SocketManager.resultData.freeSpin.count));
         }
     }
 

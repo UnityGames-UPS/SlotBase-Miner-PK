@@ -392,10 +392,11 @@ public class UIManager : MonoBehaviour
 
     internal IEnumerator FreeSpinProcess(int spins)
     {
-       
+
         //if (FreeSpinPopup_Object) FreeSpinPopup_Object.SetActive(true);
         //if (Free_Text) Free_Text.text = spins.ToString() + " Free spins awarded.";
         //if (MainPopup_Object) MainPopup_Object.SetActive(true);
+        Debug.Log($" Free Spin called 4");
         OpenPopup(freespinPopupObject);
         IsfreespinPopupopen = true;
         DOVirtual.DelayedCall(2f, () => {
