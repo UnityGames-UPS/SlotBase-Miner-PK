@@ -99,6 +99,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text FreeSpin_Text;
     [SerializeField] private TMP_Text Wild_Text;
     [SerializeField] protected internal GameObject FreeSpinPopup_Object;
+    [SerializeField] private GameObject freespinPopupObject;
+    [SerializeField] private Button skipfreeSpinbtn;
+    private bool IsfreespinPopupopen = false;
     //[SerializeField] private Button FreeSpin_Button;
 
     [SerializeField] private Button m_AwakeGameButton;
@@ -183,7 +186,7 @@ public class UIManager : MonoBehaviour
         if (Setting_exit_button) Setting_exit_button.onClick.AddListener(delegate { ClosePopup(settingObject); if (audioController) audioController.PlayButtonAudio(); });
 
         if (CloseDisconnect_Button) CloseDisconnect_Button.onClick.RemoveAllListeners();
-        if (CloseDisconnect_Button) CloseDisconnect_Button.onClick.AddListener(()=>{CallOnExitFunction(); socketManager.closeSocketReactnativeCall();});
+        if (CloseDisconnect_Button) CloseDisconnect_Button.onClick.AddListener(() => { CallOnExitFunction(); socketManager.closeSocketReactnativeCall(); });
 
         // if (audioController) audioController.ToggleMute(false);
 
@@ -199,6 +202,9 @@ public class UIManager : MonoBehaviour
 
         if (SkipWinAnimation) SkipWinAnimation.onClick.RemoveAllListeners();
         if (SkipWinAnimation) SkipWinAnimation.onClick.AddListener(SkipWin);
+
+        if (skipfreeSpinbtn) skipfreeSpinbtn.onClick.RemoveAllListeners();
+        if (skipfreeSpinbtn) skipfreeSpinbtn.onClick.AddListener(SkipFreeSpin);
 
     }
 
@@ -246,6 +252,10 @@ public class UIManager : MonoBehaviour
         }
         ClosePopup(WinPopup_Object);
         slotBehaviour.CheckPopups = false;
+    }
+    void SkipFreeSpin()
+    {
+        IsfreespinPopupopen = false;
     }
     private void PopulateSymbolsPayout(Paylines paylines)
     {
@@ -380,12 +390,23 @@ public class UIManager : MonoBehaviour
         slotBehaviour.FreeSpin(spins);
     }
 
-    internal void FreeSpinProcess(int spins)
+    internal IEnumerator FreeSpinProcess(int spins)
     {
-        FreeSpins = spins;
+       
         //if (FreeSpinPopup_Object) FreeSpinPopup_Object.SetActive(true);
         //if (Free_Text) Free_Text.text = spins.ToString() + " Free spins awarded.";
         //if (MainPopup_Object) MainPopup_Object.SetActive(true);
+        OpenPopup(freespinPopupObject);
+        IsfreespinPopupopen = true;
+        DOVirtual.DelayedCall(2f, () => {
+            if (IsfreespinPopupopen)
+            {
+                IsfreespinPopupopen = false;
+            }
+        });
+        yield return new WaitUntil(() => !IsfreespinPopupopen);
+        ClosePopup(freespinPopupObject);
+        FreeSpins = spins;
         StartFreeSpins(spins);
     }
 
