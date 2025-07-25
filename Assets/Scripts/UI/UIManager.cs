@@ -65,6 +65,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button CloseDisconnect_Button;
     [SerializeField] private GameObject DisconnectPopup_Object;
 
+    public GameObject ReconnectPopup_Object;
+
     [Header("Scripts")]
     [SerializeField] private AudioController audioController;
     [SerializeField] private SlotBehaviour slotBehaviour;
@@ -323,6 +325,17 @@ public class UIManager : MonoBehaviour
         }
         //}
     }
+    internal void CheckAndClosePopups()
+    {
+        if (ReconnectPopup_Object.activeInHierarchy)
+        {
+            ClosePopup(ReconnectPopup_Object);
+        }
+        if (DisconnectPopup_Object.activeInHierarchy)
+        {
+            ClosePopup(DisconnectPopup_Object);
+        }
+    }
 
     internal void ADfunction()
     {
@@ -399,7 +412,8 @@ public class UIManager : MonoBehaviour
         Debug.Log($" Free Spin called 4");
         OpenPopup(freespinPopupObject);
         IsfreespinPopupopen = true;
-        DOVirtual.DelayedCall(2f, () => {
+        DOVirtual.DelayedCall(2f, () =>
+        {
             if (IsfreespinPopupopen)
             {
                 IsfreespinPopupopen = false;
@@ -524,6 +538,10 @@ public class UIManager : MonoBehaviour
         float value = MusicSlider.value;
         audioController.ToggleMute(value, "bg");
 
+    }
+    internal void ReconnectionPopup()
+    {
+        OpenPopup(ReconnectPopup_Object);
     }
 
     private void ToggleSound()
