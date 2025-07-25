@@ -570,7 +570,7 @@ public class SlotBehaviour : MonoBehaviour
 
         CheckPopups = true;
 
-
+        CheckForFeaturesAnimation();
 
         if (SocketManager.resultData.jackpot.isTriggered)
         {
@@ -605,7 +605,7 @@ public class SlotBehaviour : MonoBehaviour
             {
 
                 StopAutoSpin();
-               // yield return new WaitForSeconds(0.1f);
+                // yield return new WaitForSeconds(0.1f);
                 WasAutoSpinOn = true;
             }
             if (IsFreeSpin)
@@ -776,63 +776,51 @@ public class SlotBehaviour : MonoBehaviour
 
     }
 
-    //generate the payout lines generated 
-    // private void CheckPayoutLineBackend(List<int> LineId, List<string> points_AnimString, double jackpot = 0)
-    // {
-    //     List<int> y_points = null;
-    //     List<int> points_anim = null;
-    //     if (LineId.Count > 0)
-    //     {
-    //         if (audioController) audioController.PlayWLAudio("win");
+    private void CheckForFeaturesAnimation()
+    {
+        bool playScatter = false;
+        bool playJackpot = false;
+        bool playFreespin = false;
+        // if (SocketManager.resultData.scatter.amount > 0)
+        // {
+        //     playScatter = true;
+        // }
+        if (SocketManager.resultData.jackpot.amount > 0)
+        {
+            playJackpot = true;
+        }
+        if (SocketManager.resultData.freeSpin.isFreeSpin)
+        {
+            playFreespin = true;
+        }
+        PlayFeatureAnimation(playScatter, playJackpot, playFreespin);
+    }
+    private void PlayFeatureAnimation(bool scatter = false, bool jackpot = false, bool freeSpin = false)
+    {
+        for (int i = 0; i < SocketManager.resultData.matrix.Count; i++)
+        {
+            for (int j = 0; j < SocketManager.resultData.matrix[i].Count; j++)
+            {
 
+                if (int.TryParse(SocketManager.resultData.matrix[i][j], out int parsedNumber))
+                {
+                    // if (scatter && parsedNumber == 12)
+                    // {
+                    //     StartGameAnimation(Tempimages[j].slotImages[i].transform);
+                    // }
+                    if (jackpot && parsedNumber == 10)
+                    {
+                        StartGameAnimation(Tempimages[j].slotImages[i].transform);
+                    }
+                    if (freeSpin && parsedNumber == 11)
+                    {
+                        StartGameAnimation(Tempimages[j].slotImages[i].transform);
+                    }
+                }
 
-    //         for (int i = 0; i < LineId.Count; i++)
-    //         {
-    //             y_points = y_string[LineId[i] + 1]?.Split(',')?.Select(Int32.Parse)?.ToList();
-    //             PayCalculator.GeneratePayoutLinesBackend(y_points, y_points.Count);
-    //         }
-
-    //         if (jackpot > 0)
-    //         {
-    //             for (int i = 0; i < Tempimages.Count; i++)
-    //             {
-    //                 for (int k = 0; k < Tempimages[i].slotImages.Count; k++)
-    //                 {
-    //                     StartGameAnimation(Tempimages[i].slotImages[k].transform);
-    //                 }
-    //             }
-    //         }
-    //         else
-    //         {
-    //             for (int i = 0; i < points_AnimString.Count; i++)
-    //             {
-    //                 points_anim = points_AnimString[i]?.Split(',')?.Select(Int32.Parse)?.ToList();
-
-    //                 for (int k = 0; k < points_anim.Count; k++)
-    //                 {
-    //                     if (points_anim[k] >= 10)
-    //                     {
-    //                         StartGameAnimation(Tempimages[(points_anim[k] / 10) % 10].slotImages[points_anim[k] % 10].transform);
-    //                     }
-    //                     else
-    //                     {
-    //                         StartGameAnimation(Tempimages[0].slotImages[points_anim[k]].transform);
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //         WinningsAnim(true);
-    //     }
-    //     else
-    //     {
-
-    //         //if (audioController) audioController.PlayWLAudio("lose");
-    //         if (audioController) audioController.StopWLAaudio();
-    //     }
-    //     CheckSpinAudio = false;
-    // }
-
-    //generate the result matrix
+            }
+        }
+    }
     private void GenerateMatrix(int value)
     {
         for (int j = 0; j < 4; j++)
