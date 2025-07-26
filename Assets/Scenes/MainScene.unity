@@ -3660,9 +3660,9 @@ MonoBehaviour:
   CanvasScaler: {fileID: 51930702}
   MatchWidth: 0
   MatchHeight: 1
-  PortraitMatchWandH: 0.2
+  PortraitMatchWandH: 0.5
   transitionDuration: 0.2
-  waitForRotation: 1
+  waitForRotation: 0.2
 --- !u!4 &348646597
 Transform:
   m_ObjectHideFlags: 0
