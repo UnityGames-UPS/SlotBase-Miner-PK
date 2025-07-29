@@ -4906,7 +4906,7 @@ MonoBehaviour:
   uiManager: {fileID: 377874625}
   bonusdata: []
   JSManager: {fileID: 920314835}
-  testToken: 892c1a7465bc419ba7e5e9bedb2d42e6
+  testToken: 08aafc73618f4581b655476768186169
   RaycastBlocker: {fileID: 555794375}
 --- !u!1 &502968745
 GameObject:
@@ -20039,8 +20039,8 @@ RectTransform:
   - {fileID: 1463364123}
   - {fileID: 1110286498}
   - {fileID: 1684727237}
-  - {fileID: 92973049}
   - {fileID: 1109896285}
+  - {fileID: 92973049}
   - {fileID: 1613483355}
   - {fileID: 1829934649}
   m_Father: {fileID: 1485219722}

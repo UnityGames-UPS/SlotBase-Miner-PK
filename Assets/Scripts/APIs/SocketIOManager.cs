@@ -272,6 +272,7 @@ public class SocketIOManager : MonoBehaviour
         PingRoutine = null;
     }
 
+
     private IEnumerator PingCheck()
     {
         while (true)
@@ -297,7 +298,7 @@ public class SocketIOManager : MonoBehaviour
                 {
                     Debug.LogError("❌ Unable to connect to server — 5 consecutive pongs missed.");
                     isConnected = false;
-                    uiManager.DisconnectionPopup(false);
+                    uiManager.DisconnectionPopup();
                     yield break;
                 }
             }

@@ -303,7 +303,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    internal void DisconnectionPopup(bool isReconnection)
+    internal void DisconnectionPopup()
     {
         //if (isReconnection)
         //{
@@ -312,18 +312,22 @@ public class UIManager : MonoBehaviour
         //else
         //{
         //ClosePopup(ReconnectPopup_Object);
-        if (isReconnection)
-        {
-            ClosePopup(DisconnectPopup_Object);
-        }
-        else
-        {
-            if (!isExit)
-            {
-                OpenPopup(DisconnectPopup_Object);
-            }
-        }
+        // if (isReconnection)
+        // {
+        //     ClosePopup(DisconnectPopup_Object);
+        // }
+        // else
+        // {
+        //     if (!isExit)
+        //     {
+        //         OpenPopup(DisconnectPopup_Object);
+        //     }
+        // }
         //}
+        if (!isExit)
+        {
+            OpenPopup(DisconnectPopup_Object);
+        }
     }
     internal void CheckAndClosePopups()
     {
