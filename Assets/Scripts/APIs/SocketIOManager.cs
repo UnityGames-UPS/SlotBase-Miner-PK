@@ -210,6 +210,7 @@ public class SocketIOManager : MonoBehaviour
     {
         Debug.LogWarning("⚠️ Disconnected from server.");
         isConnected = false;
+        uiManager.DisconnectionPopup();
         ResetPingRoutine();
     }
     private void OnPongReceived(string data) //Back2 Start
